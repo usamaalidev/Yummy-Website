@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Yummy</title>
+    <!-- ===== Favicon ===== -->
+    <link rel="icon" href="images/logo.png" />
+    <!-- ===== Font  Awesome Library ===== -->
+    <link rel="stylesheet" href="CSS/all.min.css" />
+    <!-- ===== Bootstrap minified Stylsheet ===== -->
+    <link rel="stylesheet" href="CSS/bootstrap.min.css" />
+    <!-- ===== Main Style sheet ===== -->
+    <link rel="stylesheet" href="CSS/main.css" />
+  </head>
+  <body>
+    <div class="loading">
+      <i class="fa-solid fa-spinner fa-spin"></i>
+    </div>
+    <aside class="position-fixed bg-white d-flex">
+      <nav
+        class="bg-dark-black h-100 text-light d-flex flex-column justify-content-between align-items-start"
+        id="navBar"
+      >
+        <ul class="w-100 p-2 py-3">
+          <li>
+            <a href="#" class="text-light d-block p-2" id="search"
+              ><i class="fa-solid fa-magnifying-glass fa-fw me-2"></i>Search</a
+            >
+          </li>
+          <li>
+            <a href="#" class="text-light d-block p-2" id="category"
+              ><i class="fa-solid fa-tags fa-fw me-2"></i>Categories</a
+            >
+          </li>
+          <li>
+            <a href="#" class="text-light d-block p-2" id="area"
+              ><i class="fa-solid fa-earth-americas fa-fw me-2"></i>Area</a
+            >
+          </li>
+          <li>
+            <a href="#" class="text-light d-block p-2" id="ingredients">
+              <i class="fa-solid fa-bowl-food fa-fw me-2"></i>Ingredients</a
+            >
+          </li>
+          <li>
+            <a href="#" class="text-light d-block p-2" id="contact"
+              ><i class="fa-solid fa-address-card fa-fw me-2"></i>Contact Us</a
+            >
+          </li>
+        </ul>
+        <footer class="text-center p-3">
+          <ul class="social-links d-flex justify-content-center">
+            <li>
+              <a href="https://facebook.com" class="facebook d-block p-2"
+                ><i class="fa-brands fa-facebook-f fa-fw"></i
+              ></a>
+            </li>
+            <li>
+              <a href="https://twitter.com" class="twitter d-block p-2"
+                ><i class="fa-brands fa-twitter fa-fw"></i
+              ></a>
+            </li>
+            <li>
+              <a href="https://youtube.com" class="youtube d-block p-2"
+                ><i class="fa-brands fa-youtube fa-fw"></i
+              ></a>
+            </li>
+          </ul>
+          <p class="author m-2">
+            Made with <i class="heart fa-solid fa-heart fa-beat px-1"></i> by
+            <a
+              href="https://github.com/usamaalidev"
+              class="fw-bold position-relative"
+              >Usama Ali</a
+            >
+          </p>
+          <p class="copyright m-0">&copy;Copyright 2022 All Rights Reserved.</p>
+        </footer>
+      </nav>
+      <div
+        class="menu bg-white d-flex flex-column justify-content-between align-items-center p-2"
+        id="menu"
+      >
+        <div class="logo">
+          <a href="index.html"
+            ><img src="images/logo.png" class="w-100" alt="Yummy Website Logo"
+          /></a>
+        </div>
+        <i class="show-hide-icon fa-solid fa-bars" id="showHideMenu"></i>
+        <div class="icons d-flex flex-column">
+          <a href="#"><i class="fa-solid fa-globe"></i></a>
+          <a href="#"><i class="fa-solid fa-share-nodes"></i></a>
+        </div>
+      </div>
+    </aside>
+
+    <section class="py-5">
+      <div class="container" id="container"></div>
+    </section>
+
+    <!-- ===== Jquery File ===== -->
+    <script src="JS/jquery-3.6.1.min.js"></script>
+    <!-- ===== Bootstrap bundle JS file ===== -->
+    <script src="JS/bootstrap.bundle.min.js"></script>
+    <!-- ===== Main Js file ===== -->
+    <script src="JS/index.js"></script>
+  </body>
+</html>
