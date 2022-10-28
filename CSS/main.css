@@ -30,7 +30,7 @@ body {
 
 ::-webkit-scrollbar-thumb {
   background-color: var(--dark-black);
-  box-shadow: 2px 2px 5px 0px #fffa inset, -2px -2px 5px 0px #fffa inset;
+  box-shadow: 2px 2px 6px 0px #fff4 inset, -2px -2px 6px 0px #fff4 inset;
   border-radius: 100vh;
 }
 
