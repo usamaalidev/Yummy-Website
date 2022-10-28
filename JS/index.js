@@ -1,7 +1,6 @@
 "use strict";
 
 // TODO: [1] loading animation.
-// TODO: [6] customize scroll bar.
 
 $("document").ready(function () {
   $(".sk-folding-cube").fadeOut(2000, function () {
@@ -32,7 +31,6 @@ $("document").ready(function () {
 
   sideBar.css("left", `${-navBarWidth}px`);
   const linkMarginBlock = $("nav ul li").css("margin-block");
-  console.log(linkMarginBlock);
 
   showHideMenu.click(toggleSideBar);
 
@@ -56,10 +54,6 @@ $("document").ready(function () {
       `https://www.themealdb.com/api/json/v1/1/${file}?${query}=${userInput}`
     );
     const initialData = await initialResponse.json();
-    console.log(
-      `https://www.themealdb.com/api/json/v1/1/${file}?${query}=${userInput}`
-    );
-    console.log(initialData);
     if (initialData.meals !== null) displayMealData(initialData.meals);
     return initialData;
   }
