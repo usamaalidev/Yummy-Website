@@ -16,6 +16,7 @@ body {
   background-color: var(--dark-black, #181818);
   color: #f1f1f1;
   font-family: "Poppins", sans-serif;
+  overflow: hidden;
 }
 
 ::selection {
@@ -192,6 +193,8 @@ aside {
 
 aside nav {
   max-width: 300px;
+  min-width: 271px;
+  position: relative;
 }
 
 nav > ul li {
@@ -206,6 +209,11 @@ nav > ul li {
 nav > ul li:hover {
   padding-left: 20px;
   background-color: var(--light-grey);
+}
+
+nav footer {
+  position: absolute;
+  bottom: 20px;
 }
 
 .social-links i {

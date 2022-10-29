@@ -3,11 +3,43 @@
 // TODO: [1] loading animation.
 
 $("document").ready(function () {
-  $(".sk-folding-cube").fadeOut(2000, function () {
-    $(".loading").fadeOut(1000, function () {
-      $(".loading").remove();
+  function loadingBuilder() {
+    const loadingContainer = document.createElement("div");
+    loadingContainer.className = "loading";
+
+    const loadingInner = document.createElement("div");
+    loadingInner.classList.add("sk-folding-cube");
+
+    const loadingIcon1 = document.createElement("div");
+    loadingIcon1.classList.add("sk-cube1", "sk-cube");
+
+    const loadingIcon2 = document.createElement("div");
+    loadingIcon2.classList.add("sk-cube2", "sk-cube");
+
+    const loadingIcon3 = document.createElement("div");
+    loadingIcon3.classList.add("sk-cube3", "sk-cube");
+
+    const loadingIcon4 = document.createElement("div");
+    loadingIcon4.classList.add("sk-cube4", "sk-cube");
+
+    loadingInner.appendChild(loadingIcon1);
+    loadingInner.appendChild(loadingIcon2);
+    loadingInner.appendChild(loadingIcon3);
+    loadingInner.appendChild(loadingIcon4);
+
+    loadingContainer.appendChild(loadingInner);
+
+    document.body.prepend(loadingContainer);
+
+    $(".sk-folding-cube").fadeOut(1000, function () {
+      $(".loading").fadeOut(500, function () {
+        $("body").css({ overflow: "auto" });
+        $(".loading").remove();
+      });
     });
-  });
+  }
+
+  loadingBuilder();
 
   // * Declaring Variables
   const sideBar = $("aside");
@@ -53,6 +85,7 @@ $("document").ready(function () {
     const initialResponse = await fetch(
       `https://www.themealdb.com/api/json/v1/1/${file}?${query}=${userInput}`
     );
+    loadingBuilder();
     const initialData = await initialResponse.json();
     if (initialData.meals !== null) displayMealData(initialData.meals);
     return initialData;
@@ -154,6 +187,7 @@ $("document").ready(function () {
     const initialResponse = await fetch(
       `https://www.themealdb.com/api/json/v1/1/${file}?${query}=${userInput}`
     );
+    loadingBuilder();
     const initialData = await initialResponse.json();
     return initialData;
   }
@@ -373,6 +407,7 @@ $("document").ready(function () {
     const initialResponse = await fetch(
       `https://www.themealdb.com/api/json/v1/1/${file}`
     );
+    loadingBuilder();
     const initialData = await initialResponse.json();
     console.log(initialData);
     return initialData;
@@ -391,6 +426,7 @@ $("document").ready(function () {
     const initialResponse = await fetch(
       `https://www.themealdb.com/api/json/v1/1/${file}?${query}=${userInput}`
     );
+    loadingBuilder();
     const initialData = await initialResponse.json();
     return initialData;
   }
