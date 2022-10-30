@@ -1,9 +1,31 @@
 "use strict";
 
 // TODO: [1] loading animation.
+// TODO: [2] check responsive design
 
 $("document").ready(function () {
-  function loadingBuilder() {
+  // * Declaring Variables
+  const sideBar = $("aside");
+  const navBar = $("aside nav");
+  const navBarWidth = navBar.outerWidth();
+  const showHideMenu = $("#showHideMenu");
+  const searchBtn = $("#search");
+  const categoryBtn = $("#category");
+  const areaBtn = $("#area");
+  const ingredientsBtn = $("#ingredients");
+  const contactBtn = $("#contact");
+  const formRegex = {
+    name: /^[a-zA-Z]+\s*[a-zA-Z]+$/,
+    email: /^\w+@\w{2,10}\.\w+$/,
+    phone: /^(\+2)?01[0125]\d{8}$/,
+    age: /^[1-9][0-9]?$/,
+    password: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/,
+  };
+  let meals;
+  let categories;
+  const body = document.body;
+
+  function loadingBuilder(element = body) {
     const loadingContainer = document.createElement("div");
     loadingContainer.className = "loading";
 
@@ -29,7 +51,7 @@ $("document").ready(function () {
 
     loadingContainer.appendChild(loadingInner);
 
-    document.body.prepend(loadingContainer);
+    element.prepend(loadingContainer);
 
     $(".sk-folding-cube").fadeOut(1000, function () {
       $(".loading").fadeOut(500, function () {
@@ -40,26 +62,6 @@ $("document").ready(function () {
   }
 
   loadingBuilder();
-
-  // * Declaring Variables
-  const sideBar = $("aside");
-  const navBar = $("aside nav");
-  const navBarWidth = navBar.outerWidth();
-  const showHideMenu = $("#showHideMenu");
-  const searchBtn = $("#search");
-  const categoryBtn = $("#category");
-  const areaBtn = $("#area");
-  const ingredientsBtn = $("#ingredients");
-  const contactBtn = $("#contact");
-  const formRegex = {
-    name: /^[a-zA-Z]+\s*[a-zA-Z]+$/,
-    email: /^\w+@\w{2,10}\.\w+$/,
-    phone: /^(\+2)?01[0125]\d{8}$/,
-    age: /^[1-9][0-9]?$/,
-    password: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/,
-  };
-  let meals;
-  let categories;
 
   sideBar.css("left", `${-navBarWidth}px`);
   const linkMarginBlock = $("nav ul li").css("margin-block");
@@ -81,13 +83,14 @@ $("document").ready(function () {
     }
   }
 
-  async function getMealsData(file, query, userInput) {
+  async function getMealsData(file, query, userInput, loadingcontainer) {
     const initialResponse = await fetch(
       `https://www.themealdb.com/api/json/v1/1/${file}?${query}=${userInput}`
     );
-    loadingBuilder();
     const initialData = await initialResponse.json();
-    if (initialData.meals !== null) displayMealData(initialData.meals);
+    if (initialData.meals !== null) {
+      displayMealData(initialData.meals);
+    }
     return initialData;
   }
 
@@ -121,12 +124,19 @@ $("document").ready(function () {
       mealItem.appendChild(mealInfo);
 
       const mealContainer = document.createElement("div");
-      mealContainer.className = "col-md-3";
+      mealContainer.classList.add("col-lg-3", "col-md-6");
       mealContainer.appendChild(mealItem);
 
       row.appendChild(mealContainer);
     }
     container.appendChild(row);
+
+    if (row.previousElementSibling) {
+      if (row.previousElementSibling.classList.contains("search")) {
+        loadingBuilder(row);
+      }
+    }
+
     meals = $(".meal");
     meals.click(showMealInfo);
   }
@@ -165,7 +175,7 @@ $("document").ready(function () {
       categoryItem.appendChild(categoryInfo);
 
       const categoryContainer = document.createElement("div");
-      categoryContainer.className = "col-md-3";
+      categoryContainer.classList.add("col-lg-3", "col-md-6");
       categoryContainer.appendChild(categoryItem);
 
       row.appendChild(categoryContainer);
@@ -178,7 +188,8 @@ $("document").ready(function () {
       const categoryMeals = await getMealsData(
         "filter.php",
         "c",
-        categoryQuery
+        categoryQuery,
+        body
       );
     });
   }
@@ -187,7 +198,7 @@ $("document").ready(function () {
     const initialResponse = await fetch(
       `https://www.themealdb.com/api/json/v1/1/${file}?${query}=${userInput}`
     );
-    loadingBuilder();
+    loadingBuilder(body);
     const initialData = await initialResponse.json();
     return initialData;
   }
@@ -208,7 +219,7 @@ $("document").ready(function () {
     mealName.className = "meal-name";
 
     const mealBrief = document.createElement("div");
-    mealBrief.classList.add("col-md-4", "meal-brief");
+    mealBrief.classList.add("col-lg-4", "meal-brief");
     mealBrief.appendChild(mealImage);
     mealBrief.appendChild(mealName);
 
@@ -343,7 +354,7 @@ $("document").ready(function () {
     sources.appendChild(youtubeBtn);
 
     const mealDetailsContainer = document.createElement("div");
-    mealDetailsContainer.classList.add("meal-details", "col-md-8");
+    mealDetailsContainer.classList.add("meal-details", "col-lg-8");
     mealDetailsContainer.appendChild(instructionHeading);
     mealDetailsContainer.appendChild(instructionParagraph);
     mealDetailsContainer.appendChild(area);
@@ -361,6 +372,7 @@ $("document").ready(function () {
 
   searchBtn.click(function () {
     toggleSideBar();
+    container.innerHTML = "";
     row.innerHTML = "";
     const searchByNameInput = document.createElement("input");
     searchByNameInput.setAttribute("placeholder", "Search By Name");
@@ -409,7 +421,6 @@ $("document").ready(function () {
     );
     loadingBuilder();
     const initialData = await initialResponse.json();
-    console.log(initialData);
     return initialData;
   }
 
@@ -441,7 +452,7 @@ $("document").ready(function () {
       areaName.textContent = area.strArea;
 
       const areaContainer = document.createElement("div");
-      areaContainer.classList.add("area-container", "col-md-3");
+      areaContainer.classList.add("area-container", "col-lg-3", "col-md-6");
       areaContainer.setAttribute("data-area", areaName.textContent);
       areaContainer.appendChild(areaIcon);
       areaContainer.appendChild(areaName);
@@ -456,7 +467,6 @@ $("document").ready(function () {
     container.innerHTML = "";
     row.innerHTML = "";
     const allAreas = await getArea("list.php", "a", "list");
-    console.log(allAreas.meals);
     areaBuilder(allAreas.meals);
     container.appendChild(row);
   });
@@ -496,7 +506,11 @@ $("document").ready(function () {
         .join(" ");
 
       const ingredientContainer = document.createElement("div");
-      ingredientContainer.classList.add("ingredient-container", "col-md-3");
+      ingredientContainer.classList.add(
+        "ingredient-container",
+        "col-lg-3",
+        "col-md-6"
+      );
       ingredientContainer.setAttribute(
         "data-ingredient",
         ingredientName.textContent
@@ -515,7 +529,6 @@ $("document").ready(function () {
     container.innerHTML = "";
     row.innerHTML = "";
     const allIngredients = await getArea("list.php", "i", "list");
-    console.log(allIngredients.meals);
     ingredientsBuilder(allIngredients.meals);
     container.appendChild(row);
   });
@@ -669,7 +682,6 @@ $("document").ready(function () {
           isConfirm(passwordInput, confirmInput);
         }
         const validInputs = document.querySelectorAll(".is-valid");
-        console.log(validInputs.length);
         if (validInputs.length == 6) {
           submitBtn.removeAttribute("disabled");
         } else {

@@ -62,10 +62,11 @@ h6 {
 
 .loading {
   width: 100%;
-  height: 100vh;
+  height: 100%;
+  margin: 0;
   background-color: var(--dark-black);
   color: var(--mid-grey);
-  position: fixed;
+  position: absolute;
   z-index: 9999999;
   left: 0;
   top: 0;
@@ -402,6 +403,10 @@ nav footer {
 .row.search {
   gap: 20px;
   margin-bottom: 40px;
+}
+
+.row.search + div {
+  position: relative;
 }
 
 .form-control {
